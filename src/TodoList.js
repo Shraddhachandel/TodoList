@@ -3,6 +3,7 @@ import React, { useState } from "react";
 const TodoList = () => {
   const [tasks, setTasks] = useState([]);
   const [taskInput, setTaskInput] = useState("");
+  const [taskId, setTaskId] = useState(1); 
 
   const handleChange = (e) => {
     setTaskInput(e.target.value);
@@ -10,7 +11,12 @@ const TodoList = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setTasks([...tasks, taskInput]);
+    const newTask = {
+      id: taskId,
+      content: taskInput
+    };
+    setTasks([...tasks, newTask]);
+    setTaskId(taskId + 1); 
     setTaskInput("");
   };
 
@@ -27,8 +33,8 @@ const TodoList = () => {
         <button type="submit">Add Task</button>
       </form>
       <ul>
-        {tasks.map((task, index) => (
-          <li key={index}>{task}</li>
+        {tasks.map((task) => (
+          <li key={task.id}>{task.content}</li>
         ))}
       </ul>
     </div>
